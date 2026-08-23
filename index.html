@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#03120E" />
+    <title>HIPPOGRIFF | Planejamento IPv4</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              display: ['Space Grotesk', 'sans-serif'],
+              sans: ['DM Sans', 'sans-serif']
+            }
+          }
+        }
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="bg-[#f8f4f9] text-[#03120e]">
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <a class="brand" href="#dashboard" aria-label="HIPPOGRIFF início">
+            <img src="static/logo.png" alt="HIPPOGRIFF" />
+          </a>
+          <span class="version-tag">BETA</span>
+        </div>
+
+        <div class="workspace-switcher">
+          <div class="workspace-icon">NW</div>
+          <div>
+            <p class="eyebrow">Workspace atual</p>
+            <p class="workspace-name">Núcleo de redes</p>
+          </div>
+          <span class="chevron">⌄</span>
+        </div>
+
+        <nav class="side-nav" aria-label="Navegação principal">
+          <p class="nav-label">Workspace</p>
+          <a class="nav-item active" href="#dashboard"><span class="nav-icon grid-icon"></span>Visão geral</a>
+          <a class="nav-item" href="#ipv4"><span class="nav-icon target-icon"></span>Calculadora IPv4</a>
+          <a class="nav-item" href="#vlsm"><span class="nav-icon nodes-icon"></span>Planejador VLSM</a>
+          <p class="nav-label tools-label">Ferramentas</p>
+          <a class="nav-item disabled" href="#vlan"><span class="nav-icon layers-icon"></span>VLANs <span class="soon">Em breve</span></a>
+          <a class="nav-item disabled" href="#switch"><span class="nav-icon terminal-icon"></span>Config. de switches <span class="soon">Em breve</span></a>
+          <a class="nav-item disabled" href="#ssh"><span class="nav-icon link-icon"></span>Automação SSH <span class="soon">Em breve</span></a>
+        </nav>
+
+        <div class="sidebar-bottom">
+          <div class="tip-card">
+            <span class="tip-spark">✦</span>
+            <div>
+              <p class="tip-title">Atalho rápido</p>
+              <p class="tip-text">Comece um novo plano a partir de uma rede base.</p>
+            </div>
+            <a href="#ipv4" class="tip-arrow" aria-label="Abrir calculadora IPv4">↗</a>
+          </div>
+          <div class="profile">
+            <div class="avatar">MS</div>
+            <div><p class="profile-name">Marina Silva</p><p class="profile-role">Network engineer</p></div>
+            <span class="more">•••</span>
+          </div>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <div class="mobile-brand"><span class="mobile-logo-crop"><img src="static/logo.png" alt="" /></span><span>H<span class="logo-highlight">I</span><span class="logo-highlight">P</span>POGRIFF</span></div>
+          <div class="breadcrumbs"><span>Workspace</span><span>/</span><strong>Visão geral</strong></div>
+          <div class="top-actions">
+            <button class="icon-button" aria-label="Ajuda">?</button>
+            <button class="icon-button notification" aria-label="Notificações"><span></span>♢</button>
+            <button class="top-avatar">MS</button>
+          </div>
+        </header>
+
+        <section id="dashboard" class="page-section dashboard-section">
+          <div class="section-heading reveal-one">
+            <div>
+              <p class="kicker"><span class="kicker-line"></span> Segunda-feira, 23 de agosto de 2026</p>
+              <h1>Bom dia, Marina<span class="yellow-dot">.</span></h1>
+              <p class="lead">Organize sua infraestrutura com clareza, uma rede por vez.</p>
+            </div>
+            <a class="button button-primary" href="#ipv4"><span class="button-plus">+</span> Novo planejamento</a>
+          </div>
+
+          <div class="overview-grid reveal-two">
+            <article class="stat-card featured-stat">
+              <div class="stat-top"><span class="stat-icon mint-icon">⌁</span><span class="stat-label">Redes planejadas</span><span class="stat-trend">+12,5% <small>↗</small></span></div>
+              <div class="stat-value">24</div><p class="stat-foot">neste workspace</p>
+              <div class="sparkline"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            </article>
+            <article class="stat-card"><div class="stat-top"><span class="stat-icon yellow-icon">⌗</span><span class="stat-label">Hosts endereçados</span></div><div class="stat-value">1.248</div><p class="stat-foot">em todos os planos</p><div class="mini-bars"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></article>
+            <article class="stat-card"><div class="stat-top"><span class="stat-icon brown-icon">◫</span><span class="stat-label">Último cálculo</span></div><div class="stat-value compact">192.168.10.0</div><p class="stat-foot">há 2 horas <span class="status-dot"></span> concluído</p><div class="cidr-chip">/24</div></article>
+          </div>
+
+          <div class="content-grid reveal-three">
+            <section class="panel activity-panel">
+              <div class="panel-heading"><div><p class="panel-kicker">Atividade recente</p><h2>Seus planejamentos</h2></div><a class="text-link" href="#ipv4">Ver todos <span>→</span></a></div>
+              <div class="activity-list">
+                <a class="activity-row" href="#ipv4"><span class="row-icon cyan-row">⌁</span><span class="row-main"><strong>Rede escritório principal</strong><small>Calculadora IPv4 · Atualizado hoje, 10:42</small></span><span class="row-network">192.168.10.0/24</span><span class="row-arrow">→</span></a>
+                <a class="activity-row" href="#vlsm"><span class="row-icon yellow-row">⌗</span><span class="row-main"><strong>Segmentação departamentos</strong><small>Planejador VLSM · Atualizado ontem, 16:18</small></span><span class="row-network">10.20.0.0/16</span><span class="row-arrow">→</span></a>
+                <a class="activity-row" href="#ipv4"><span class="row-icon brown-row">⌁</span><span class="row-main"><strong>Laboratório de testes</strong><small>Calculadora IPv4 · Atualizado 21 ago, 09:03</small></span><span class="row-network">172.16.4.0/26</span><span class="row-arrow">→</span></a>
+              </div>
+            </section>
+            <section class="panel quick-panel"><div class="panel-heading"><div><p class="panel-kicker">Comece por aqui</p><h2>Ferramentas</h2></div></div><a class="tool-card tool-primary" href="#ipv4"><span class="tool-icon">⌁</span><span><strong>Calculadora IPv4</strong><small>Descubra os limites da sua rede.</small></span><span class="tool-arrow">↗</span></a><a class="tool-card" href="#vlsm"><span class="tool-icon yellow-icon">⌗</span><span><strong>Planejador VLSM</strong><small>Distribua sub-redes com precisão.</small></span><span class="tool-arrow">↗</span></a></section>
+          </div>
+        </section>
+
+        <section id="ipv4" class="page-section tool-section">
+          <div class="section-heading compact-heading"><div><p class="kicker"><span class="kicker-line"></span> Ferramenta de endereçamento</p><h1>Calculadora <em>IPv4</em><span class="yellow-dot">.</span></h1><p class="lead">Modele uma rede e visualize seus limites de endereçamento.</p></div><span class="mock-badge">● MODO DEMONSTRAÇÃO</span></div>
+          <div class="tool-layout"><section class="panel form-panel"><div class="panel-heading"><div><p class="panel-kicker">Entradas da rede</p><h2>Defina os parâmetros</h2></div><span class="step-badge">01 / 02</span></div><label>Endereço IPv4<input type="text" value="192.168.1.0" aria-label="Endereço IPv4" /></label><div class="form-split"><label>Máscara ou CIDR<div class="input-with-suffix"><input type="text" value="24" aria-label="CIDR" /><span>/</span></div></label><label>Hosts necessários<input type="text" value="50" aria-label="Hosts necessários" /></label></div><div class="form-note"><span>i</span> Estes valores são exemplos editáveis para esta demonstração.</div><button class="button button-primary full-button">Calcular rede <span>→</span></button></section><section class="results-column"><div class="result-cards"><div class="result-card main-result"><span>Endereço de rede</span><strong>192.168.1.0</strong><b>/24</b></div><div class="result-card"><span>Máscara de sub-rede</span><strong>255.255.255.0</strong></div><div class="result-card"><span>Hosts disponíveis</span><strong>254</strong><small>endereços utilizáveis</small></div></div><div class="panel terminal-panel"><div class="terminal-head"><div><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><strong>network-output.txt</strong></div><button class="copy-button">▣ Copiar</button></div><pre>Network:     192.168.1.0
+CIDR:        /24
+Subnet Mask: 255.255.255.0
+First Host:  192.168.1.1
+Last Host:   192.168.1.254
+Broadcast:   192.168.1.255
+Hosts:       254</pre></div><div class="detail-grid"><div><span>Primeiro IP utilizável</span><strong>192.168.1.1</strong></div><div><span>Último IP utilizável</span><strong>192.168.1.254</strong></div><div><span>Broadcast</span><strong>192.168.1.255</strong></div><div><span>Endereços totais</span><strong>256</strong></div></div></section></div>
+        </section>
+
+        <section id="vlsm" class="page-section tool-section vlsm-section"><div class="section-heading compact-heading"><div><p class="kicker"><span class="kicker-line"></span> Planejamento avançado</p><h1>Planejador <em>VLSM</em><span class="yellow-dot">.</span></h1><p class="lead">Distribua sua rede base entre departamentos e necessidades reais.</p></div><span class="mock-badge">● MODO DEMONSTRAÇÃO</span></div><div class="panel vlsm-input-panel"><div class="panel-heading"><div><p class="panel-kicker">01 · Rede base</p><h2>De onde partimos?</h2></div><div class="base-network-inputs"><input value="10.20.0.0" aria-label="Rede IPv4 base" /><span>/</span><input value="16" aria-label="CIDR base" /></div></div><div class="requirements-heading"><div><p class="panel-kicker">02 · Requisitos</p><h2>Redes e departamentos</h2></div><button class="button button-outline">+ Adicionar requisito</button></div><div class="requirements-table"><div class="requirement-header"><span>Nome da rede / departamento</span><span>Hosts necessários</span><span></span></div><div class="requirement-row"><input value="Tecnologia da Informação" aria-label="Nome da rede" /><input value="50" aria-label="Hosts necessários TI" /><button class="remove-button" aria-label="Remover requisito">×</button></div><div class="requirement-row"><input value="Administração" aria-label="Nome da rede" /><input value="25" aria-label="Hosts necessários Administração" /><button class="remove-button" aria-label="Remover requisito">×</button></div><div class="requirement-row"><input value="Financeiro" aria-label="Nome da rede" /><input value="15" aria-label="Hosts necessários Financeiro" /><button class="remove-button" aria-label="Remover requisito">×</button></div><div class="requirement-row"><input value="Recursos Humanos" aria-label="Nome da rede" /><input value="10" aria-label="Hosts necessários RH" /><button class="remove-button" aria-label="Remover requisito">×</button></div></div><button class="button button-primary calculate-vlsm">Distribuir sub-redes <span>→</span></button></div><div class="panel table-panel"><div class="panel-heading"><div><p class="panel-kicker">Resultado da distribuição</p><h2>Mapa VLSM</h2></div><span class="result-count">4 redes geradas</span></div><div class="data-table-wrap"><table><thead><tr><th>Rede</th><th>Hosts</th><th>Endereço de rede</th><th>CIDR</th><th>Máscara</th><th>Primeiro IP</th><th>Último IP</th><th>Broadcast</th></tr></thead><tbody><tr><td><strong class="table-network"><span class="table-dot cyan-dot"></span>TI</strong></td><td>50</td><td>10.20.0.0</td><td><b>/26</b></td><td>255.255.255.192</td><td>10.20.0.1</td><td>10.20.0.62</td><td>10.20.0.63</td></tr><tr><td><strong class="table-network"><span class="table-dot yellow-dot-small"></span>Administração</strong></td><td>25</td><td>10.20.0.64</td><td><b>/27</b></td><td>255.255.255.224</td><td>10.20.0.65</td><td>10.20.0.94</td><td>10.20.0.95</td></tr><tr><td><strong class="table-network"><span class="table-dot brown-dot"></span>Financeiro</strong></td><td>15</td><td>10.20.0.96</td><td><b>/27</b></td><td>255.255.255.224</td><td>10.20.0.97</td><td>10.20.0.126</td><td>10.20.0.127</td></tr><tr><td><strong class="table-network"><span class="table-dot green-dot"></span>RH</strong></td><td>10</td><td>10.20.0.128</td><td><b>/28</b></td><td>255.255.255.240</td><td>10.20.0.129</td><td>10.20.0.142</td><td>10.20.0.143</td></tr></tbody></table></div><div class="terminal-panel compact-terminal"><div class="terminal-head"><div><span class="terminal-dot"></span><span class="terminal-dot"></span><span class="terminal-dot"></span><strong>vlsm-output.txt</strong></div><button class="copy-button">▣ Copiar</button></div><pre>Base network:  10.20.0.0/16
+Subnets:       4 allocated
+Address space: 10.20.0.0 - 10.20.0.143</pre></div></div></section>
+      </main>
+    </div>
+  </body>
+</html>
