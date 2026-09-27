@@ -1,0 +1,86 @@
+{
+  "users": [
+    {
+      "name": "rychardson",
+      "email": "zafler2107@gmail.com",
+      "password": "12345678",
+      "id": 1
+    }
+  ],
+  "subnetworks": [
+    {
+      "name": "Minha sub-rede",
+      "ipv4": "192.168.1.0",
+      "cidr": 24,
+      "requiredHosts": 800,
+      "result": {
+        "ipv4": "192.168.1.0",
+        "network": "192.168.1.0",
+        "subnetting": "/24",
+        "mask": "255.255.255.0",
+        "wildcard": "0.0.0.255",
+        "broadcast": "192.168.1.255",
+        "hosts": 254,
+        "requiredHosts": 800,
+        "firstHost": "192.168.1.1",
+        "lastHost": "192.168.1.254",
+        "conversions": [
+          {
+            "label": "Rede",
+            "value": "192.168.1.0"
+          },
+          {
+            "label": "Máscara",
+            "value": "255.255.255.0"
+          },
+          {
+            "label": "CIDR",
+            "value": "/24"
+          },
+          {
+            "label": "Endereço decimal",
+            "value": "3232235776"
+          },
+          {
+            "label": "Máscara decimal",
+            "value": "4294967040"
+          },
+          {
+            "label": "Wildcard decimal",
+            "value": "255"
+          },
+          {
+            "label": "Broadcast decimal",
+            "value": "3232236031"
+          }
+        ],
+        "totalAddresses": 256
+      },
+      "userId": 1,
+      "createdAt": "2026-09-27T18:59:07.071Z",
+      "id": 1
+    },
+    {
+      "name": "Essa rede tem 600 hosts",
+      "ipv4": "192.168.1.0",
+      "cidr": 22,
+      "requiredHosts": 600,
+      "result": {
+        "ipv4": "192.168.1.0",
+        "network": "192.168.0.0",
+        "subnetting": "/22",
+        "mask": "255.255.252.0",
+        "wildcard": "0.0.3.255",
+        "broadcast": "192.168.3.255",
+        "hosts": 1022,
+        "requiredHosts": 600,
+        "firstHost": "192.168.0.1",
+        "lastHost": "192.168.3.254",
+        "totalAddresses": 1024
+      },
+      "userId": 1,
+      "createdAt": "2026-09-27T19:57:35.982Z",
+      "id": 2
+    }
+  ]
+}
