@@ -1,45 +1,57 @@
-import { useEffect, useState } from 'react';
-import './styles.css';
-import { AuthDialog } from './features/ipv4/components/AuthDialog';
-import { getUserSubnetworks, saveSubnetwork } from './features/ipv4/ipv4Api';
-import { HomePage } from './features/home/HomePage';
-import { NetworkWorkspace } from './features/workspace/NetworkWorkspace';
+import { useEffect, useState } from "react";
+import "./styles.css";
+import { AuthDialog } from "./features/ipv4/components/AuthDialog";
+import {
+  deleteSubnetwork,
+  getUserSubnetworks,
+  saveSubnetwork,
+  updateSubnetwork,
+} from "./features/ipv4/ipv4Api";
+import { HomePage } from "./features/home/HomePage";
+import { SubnetworkDetails } from "./features/workspace/SubnetworkDetails";
+import { NetworkWorkspace } from "./features/workspace/NetworkWorkspace";
 
-const getCurrentPage = () => window.location.hash === '#workspace' ? 'workspace' : 'home';
+const getCurrentPage = () => {
+  if (window.location.hash === "#workspace") return "workspace";
+  if (window.location.hash === "#details") return "details";
+  return "home";
+};
 
 function App() {
   const [page, setPage] = useState(getCurrentPage);
   const [user, setUser] = useState(() => {
     try {
-      return JSON.parse(localStorage.getItem('hippogriff-user'));
+      return JSON.parse(localStorage.getItem("hippogriff-user"));
     } catch {
       return null;
     }
   });
   const [authOpen, setAuthOpen] = useState(false);
   const [subnetworks, setSubnetworks] = useState([]);
-  const [saveMessage, setSaveMessage] = useState('');
+  const [saveMessage, setSaveMessage] = useState("");
 
   useEffect(() => {
     const syncPage = () => setPage(getCurrentPage());
-    window.addEventListener('hashchange', syncPage);
-    return () => window.removeEventListener('hashchange', syncPage);
+    window.addEventListener("hashchange", syncPage);
+    return () => window.removeEventListener("hashchange", syncPage);
   }, []);
 
   useEffect(() => {
     if (!user) {
-      localStorage.removeItem('hippogriff-user');
+      localStorage.removeItem("hippogriff-user");
       setSubnetworks([]);
       return undefined;
     }
 
-    localStorage.setItem('hippogriff-user', JSON.stringify(user));
+    localStorage.setItem("hippogriff-user", JSON.stringify(user));
     let active = true;
     getUserSubnetworks(user.id)
       .then((items) => active && setSubnetworks(items))
       .catch((error) => active && setSaveMessage(error.message));
 
-    return () => { active = false; };
+    return () => {
+      active = false;
+    };
   }, [user]);
 
   const handleSaveSubnetwork = async (configuration) => {
@@ -48,18 +60,41 @@ function App() {
       return;
     }
 
-    setSaveMessage('');
+    setSaveMessage("");
     try {
       await saveSubnetwork(user.id, configuration);
       setSubnetworks(await getUserSubnetworks(user.id));
-      setSaveMessage('Configuração salva na sua conta.');
+      setSaveMessage("Configuração salva na sua conta.");
+    } catch (error) {
+      setSaveMessage(error.message);
+    }
+  };
+
+  const handleUpdateSubnetwork = async (id, configuration) => {
+    setSaveMessage("");
+    try {
+      await updateSubnetwork(id, configuration);
+      setSubnetworks(await getUserSubnetworks(user.id));
+      setSaveMessage("Sub-rede atualizada.");
+    } catch (error) {
+      setSaveMessage(error.message);
+      throw error;
+    }
+  };
+
+  const handleDeleteSubnetwork = async (id) => {
+    setSaveMessage("");
+    try {
+      await deleteSubnetwork(id);
+      setSubnetworks(await getUserSubnetworks(user.id));
+      setSaveMessage("Sub-rede removida.");
     } catch (error) {
       setSaveMessage(error.message);
     }
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('hippogriff-user');
+    localStorage.removeItem("hippogriff-user");
     setUser(null);
   };
 
@@ -67,31 +102,79 @@ function App() {
     <div className="app-shell app-shell-page">
       <header className="site-header">
         <a className="site-brand" href="#home" aria-label="HIPPOGRIFF início">
-          <span className="site-brand-mark"><img src="/static/logo.png" alt="" /></span>
-          <span>HIPPOGRIFF<span className="brand-period">.</span></span>
+          <span className="site-brand-mark">
+            <img src="/static/logo.png" alt="" />
+          </span>
+          <span>
+            HIPPOGRIFF<span className="brand-period">.</span>
+          </span>
         </a>
         <nav className="site-nav" aria-label="Navegação principal">
-          <a className={page === 'home' ? 'site-nav-link active' : 'site-nav-link'} href="#home">Início</a>
-          <a className={page === 'workspace' ? 'site-nav-link active' : 'site-nav-link'} href="#workspace">Workspace</a>
+          <a
+            className={
+              page === "home" ? "site-nav-link active" : "site-nav-link"
+            }
+            href="#home"
+          >
+            Início
+          </a>
+          <a
+            className={
+              page === "workspace" ? "site-nav-link active" : "site-nav-link"
+            }
+            href="#workspace"
+          >
+            Workspace
+          </a>
+          <a
+            className={
+              page === "details" ? "site-nav-link active" : "site-nav-link"
+            }
+            href="#details"
+          >
+            Sub-redes
+          </a>
         </nav>
         <div className="site-account">
-          {user ? <span className="site-user">{user.name}</span> : <span className="site-user">Planejamento livre</span>}
-          <button className="account-button" type="button" onClick={user ? handleLogout : () => setAuthOpen(true)}>{user ? 'Sair' : 'Entrar'}</button>
+          {user ? (
+            <span className="site-user">{user.name}</span>
+          ) : (
+            <span className="site-user">Planejamento livre</span>
+          )}
+          <button
+            className="account-button"
+            type="button"
+            onClick={user ? handleLogout : () => setAuthOpen(true)}
+          >
+            {user ? "Sair" : "Entrar"}
+          </button>
         </div>
       </header>
 
-      {page === 'workspace' ? (
+      {page === "workspace" ? (
         <NetworkWorkspace
+          user={user}
+          saveMessage={saveMessage}
+          onRequestLogin={() => setAuthOpen(true)}
+          onSave={handleSaveSubnetwork}
+        />
+      ) : page === "details" ? (
+        <SubnetworkDetails
           user={user}
           subnetworks={subnetworks}
           saveMessage={saveMessage}
           onRequestLogin={() => setAuthOpen(true)}
-          onSave={handleSaveSubnetwork}
-          onLoad={() => { window.location.hash = 'workspace'; }}
+          onUpdate={handleUpdateSubnetwork}
+          onDelete={handleDeleteSubnetwork}
         />
-      ) : <HomePage />}
+      ) : (
+        <HomePage />
+      )}
 
-      <footer className="site-footer"><span>HIPPOGRIFF · Planejamento visual de redes IPv4</span><a href="#workspace">Abrir workspace →</a></footer>
+      <footer className="site-footer">
+        <span>HIPPOGRIFF · Planejamento visual de redes IPv4</span>
+        <a href="#workspace">Abrir workspace →</a>
+      </footer>
 
       <AuthDialog
         isOpen={authOpen}

@@ -5,6 +5,12 @@
       "email": "zafler2107@gmail.com",
       "password": "12345678",
       "id": 1
+    },
+    {
+      "name": "murilo",
+      "email": "murilo@gmail.com",
+      "password": "12345678",
+      "id": 2
     }
   ],
   "subnetworks": [
@@ -81,6 +87,80 @@
       "userId": 1,
       "createdAt": "2026-09-27T19:57:35.982Z",
       "id": 2
+    },
+    {
+      "name": "nao sei",
+      "ipv4": "192.168.1.0",
+      "cidr": 23,
+      "requiredHosts": 300,
+      "result": {
+        "ipv4": "192.168.1.0",
+        "network": "192.168.0.0",
+        "subnetting": "/23",
+        "mask": "255.255.254.0",
+        "wildcard": "0.0.1.255",
+        "broadcast": "192.168.1.255",
+        "hosts": 510,
+        "requiredHosts": 300,
+        "firstHost": "192.168.0.1",
+        "lastHost": "192.168.1.254",
+        "totalAddresses": 512
+      },
+      "requirements": [
+        {
+          "name": "devops",
+          "vlan": 10,
+          "hosts": 100
+        },
+        {
+          "name": "redes",
+          "vlan": 20,
+          "hosts": 100
+        },
+        {
+          "name": "sla",
+          "vlan": 30,
+          "hosts": 100
+        }
+      ],
+      "allocations": [
+        {
+          "name": "devops",
+          "vlan": 10,
+          "hosts": 100,
+          "cidr": 25,
+          "network": "192.168.0.0",
+          "broadcast": "192.168.0.127",
+          "firstHost": "192.168.0.1",
+          "lastHost": "192.168.0.126",
+          "totalAddresses": 128
+        },
+        {
+          "name": "redes",
+          "vlan": 20,
+          "hosts": 100,
+          "cidr": 25,
+          "network": "192.168.0.128",
+          "broadcast": "192.168.0.255",
+          "firstHost": "192.168.0.129",
+          "lastHost": "192.168.0.254",
+          "totalAddresses": 128
+        },
+        {
+          "name": "sla",
+          "vlan": 30,
+          "hosts": 100,
+          "cidr": 25,
+          "network": "192.168.1.0",
+          "broadcast": "192.168.1.127",
+          "firstHost": "192.168.1.1",
+          "lastHost": "192.168.1.126",
+          "totalAddresses": 128
+        }
+      ],
+      "userId": 2,
+      "createdAt": "2026-10-01T13:24:56.054Z",
+      "id": 5
     }
   ]
 }
